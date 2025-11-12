@@ -802,8 +802,10 @@ int FindMax(int num[], int size, int* pMaxPos)
 //    }
 //    return 0;
 //}
+/*
 #include<stdio.h>
-#include<string>
+#include<string.h>
+#include<stdlib.h>
 struct ListNode {
     int val;
     struct ListNode* next;
@@ -823,12 +825,6 @@ void addNode(struct ListNode** head, int value) {
     }
     temp->next = newNode;
 }
-void CutAdd(struct ListNode* last, int value) {
-    struct ListNode* newNode = (struct ListNode*)malloc(sizeof(struct ListNode));
-    newNode->val = value;
-    newNode->next = last->next;
-    last->next = newNode;
-}
 
 void showNode(struct ListNode* head) {
     while (head != NULL) {
@@ -836,14 +832,43 @@ void showNode(struct ListNode* head) {
         head = head->next;
     }
 }
-ListNode* Findlast(struct ListNode** head, struct ListNode* temp) {
-    temp = *head;
-    while (temp->next->next != NULL) {
-        temp = temp->next;
-    }
-    return temp;
-}
 
+
+void init(struct ListNode** headA,int a[],int size){
+    
+    for (int i = 0; i < size; i++) {
+        struct ListNode** current = headA;
+        while (*current != NULL && (*current)->val <= a[i]) {
+            current = &(*current)->next;
+        }
+			struct ListNode* newNode = (struct ListNode*)malloc(sizeof(struct ListNode));
+            newNode->val = a[i];
+            newNode->next = *current;
+            (*current) = newNode;
+          
+  }
+	
+    showNode(*headA);
+	
+}
+struct ListNode* mergeLists(struct ListNode* l1, struct ListNode* l2) {
+    struct ListNode dummy;
+    struct ListNode* tail = &dummy;
+
+    while (l1 && l2) {
+        if (l1->val < l2->val) {
+            tail->next = l1;
+            l1 = l1->next;
+        }
+        else {
+            tail->next = l2;
+            l2 = l2->next;
+        }
+        tail = tail->next;
+    }
+    tail->next = l1 ? l1 : l2;
+    return dummy.next;
+}
 
 int main() {
     int a[5] = { 9,78,33,12,23 };
@@ -851,56 +876,225 @@ int main() {
 
     //处理a
     struct ListNode* headA = NULL;
-    addNode(&headA, a[0]);
-    struct ListNode* lastA = (struct ListNode*)malloc(sizeof(struct ListNode));
-    for (int i = 0; i < 5; i++) {
-        lastA = Findlast(&headA, lastA);//他的下一个是最后一个
-        if (a[i] < lastA->next->val) {
-            CutAdd(lastA, a[i]);
-        }
-        else {
-            addNode(&headA, a[i]);
-        }
-    }
-    showNode(headA);
+    init(&headA, a,5);
+    
     //处理b
     struct ListNode* headB = NULL;
-    addNode(&headB, b[0]);
-    struct ListNode* lastB = (struct ListNode*)malloc(sizeof(struct ListNode));
-    for (int i = 0; i < 8; i++) {
-        lastB = Findlast(&headB, lastB);//他的下一个是最后一个
-        if (b[i] < lastB->next->val) {
-            CutAdd(lastB, b[i]);
-        }
-        else {
-            addNode(&headB, b[i]);
-        }
-    }
-    showNode(headB);
+    init(&headB, b,8);
+    
     //合并，并且升序输出，最小堆？把B改了
-    struct ListNode* tempA = headA;
-    struct ListNode* tempB = headB;
-    for (int i = 0; i < 5; i++) {
-
-        while (1) {
-            if (tempA->val < tempB->next->val) {
-                CutAdd(tempB, tempA->val);
-                tempB = tempB->next;
-                break;
-            }
-            else {
-                tempB = tempB->next;
-            }
-        }
-        tempA = tempA->next;
-    }
-    while (headB != NULL) {
-        printf("%4d", headB->val);
-        headB = headB->next;
+    struct ListNode* merged = mergeLists(headA, headB);
+    while (merged != NULL) {
+        printf("%4d", merged->val);
+        merged = merged->next;
     }
     return 0;
 }
+*/
+/*2500年前数学大师毕达哥拉斯就发现，220与284两数之间存在着奇妙的联系：
+220的真因数之和为：1+2+4+5+10+11+20+22+44+55+110=284
+284的真因数之和为：1+2+4+71+142=220
+毕达哥拉斯吧这样的数对A,B称为相亲数：A的真因数之和为B，而B的真因数之和为A。设计程序求4位以内的相亲数。
+**输出格式要求："相亲数：%d,%d\n"  "%d 的真因数之和为：%d"  "+%d"  "=%d\n"
+程序运行示例如下：
+相亲数：220,284
+220 的真因数之和为：1+2+4+5+10+11+20+22+44+55+110=284
+284 的真因数之和为：1+2+4+71+142=220
+相亲数：1184,1210
+1184 的真因数之和为：1+2+4+8+16+32+37+74+148+296+592=1210
+1210 的真因数之和为：1+2+5+10+11+22+55+110+121+242+605=1184
+相亲数：2620,2924
+2620 的真因数之和为：1+2+4+5+10+20+131+262+524+655+1310=2924
+2924 的真因数之和为：1+2+4+17+34+43+68+86+172+731+1462=2620
+相亲数：5020,5564
+5020 的真因数之和为：1+2+4+5+10+20+251+502+1004+1255+2510=5564
+5564 的真因数之和为：1+2+4+13+26+52+107+214+428+1391+2782=5020
+相亲数：6232,6368
+6232 的真因数之和为：1+2+4+8+19+38+41+76+82+152+164+328+779+1558+3116=6368
+6368 的真因数之和为：1+2+4+8+16+32+199+398+796+1592+3184=6232
+
+*/
+//找到四位数以内的相亲数
+/*
+#include<stdio.h>
+int Find_sum(int a,int*arrsum1) {
+    int sum = 0;
+    int count = 0;
+    for (int i = 0; i < a / 2; i++) {
+        if(a % (i + 1) == 0){
+			arrsum1[count] = i + 1;
+            sum += (i + 1);
+			count++;
+		}
+    }
+	arrsum1[count] = sum;
+	arrsum1[count + 1] = -1; //标记结束
+    return sum;
+}
 
+void show_sum(int a,int*arrsuma) {
+    printf("%d 的真因数之和为：%d", a,arrsuma[0]);
+    int i = 1;
+        for (i; arrsuma[i] != -1; i++) {
+            printf("+%d", arrsuma[i]);
+        
+	} 
+    printf("=%d\n", arrsuma[i-1]);
+
+}
+
+int main() {
+    
+    for (int i = 100; i < 10000; i++) {
+        int arrsum1[100] = { 0 };
+        int arrsum2[100] = { 0 };
+        int sum1 = Find_sum(i,arrsum1);
+        int sum2 = Find_sum(sum1,arrsum2);
+        if (sum2 == i && sum1 != i) {
+            printf("相亲数：%d,%d\n", i, sum1);
+            show_sum(i, arrsum1);
+            show_sum(sum1, arrsum2);
+            i = sum1;
+        }
+
+        
+    }
+    return 0;
+}
+//预处理快速计算
+// #include<stdio.h>
+
+// 快速计算真因数和（不存储具体因数）
+int QuickFind_sum(int a) {
+    int sum = 0;
+    for (int i = 1; i <= a / 2; i++) {
+        if (a % i == 0) {
+            sum += i;
+        }
+    }
+    return sum;
+}
+
+// 详细计算并存储真因数（用于显示）
+int DetailedFind_sum(int a, int* arrsum1) {
+    int sum = 0;
+    int count = 0;
+    for (int i = 1; i <= a / 2; i++) {
+        if (a % i == 0) {
+            arrsum1[count] = i;
+            sum += i;
+            count++;
+        }
+    }
+    arrsum1[count] = sum;
+    arrsum1[count + 1] = -1;
+    return sum;
+}
+
+void show_sum(int a, int* arrsuma) {
+    printf("%d 的真因数之和为：%d", a, arrsuma[0]);
+    for (int i = 1; arrsuma[i] != -1; i++) {
+        printf("+%d", arrsuma[i]);
+    }
+    printf("=%d\n", arrsuma[i - 1]);
+}
+
+int main() {
+    for (int i = 100; i < 10000; i++) {
+        int sum1 = QuickFind_sum(i);  // 快速判断
+
+        if (sum1 > i && sum1 < 10000) {
+            int sum2 = QuickFind_sum(sum1);  // 快速判断
+            if (sum2 == i) {
+                // 确认是相亲数后，再详细计算用于显示
+                int arrsum1[100] = { 0 };
+                int arrsum2[100] = { 0 };
+                DetailedFind_sum(i, arrsum1);
+                DetailedFind_sum(sum1, arrsum2);
+
+                printf("相亲数：%d,%d\n", i, sum1);
+                show_sum(i, arrsum1);
+                show_sum(sum1, arrsum2);
+                i = sum1;
+            }
+        }
+    }
+    return 0;
+}
+*/
+
+//有序数组插入数据有序。在一个按升序排序的数组中查找x应插入的位置，将x插入数组中，使数组元素仍按升序排列。
+//注意：定义的数组大小不超过20。例如升序数组里面有5个元素（1  3  5  7  9），待插入数据4，插入后的数组（1   3   4   5   7   9）仍然有序。
+//* *输入格式要求："%d"
+//* *输出格式要求： "%4d"
+//程序运行示例如下：
+//输入 : 5
+//输入 : 1  3  5  7  9
+//输入 : 4
+//输出 : 1   3   4   5   7   9
+//留21个位置即可
+/*
+#include<stdio.h>
+int main() {
+    //输入
+    int arr[21] = { 0 };
+    int size = 0;
+    scanf_s("%d", &size);
+    for (int i = 0; i < size; i++) {
+        scanf_s("%d", &arr[i]);
+    }
+    int addnum = 0;
+    scanf_s("%d", &addnum);
+    //插入
+    int i = 0;
+    for (i; i < size; i++) {
+        if (addnum < arr[i]) {
+            break;
+        }
+    }
+    for (int j = size; j >i; j--) {
+        arr[j] = arr[j - 1];
+    }
+	arr[i] = addnum;
+    for (int i = 0; i < size+1; i++) {
+		printf("%4d", arr[i]);
+    }
+    return 0;
+}
+*/
+#include<stdio.h>
+int main() {
+    char sex, sports, diet;
+    float faHeight, moHeight, result;
+    printf("Are you a boy(M) or a girl(F)?");
+    scanf("%c", &sex);
+    printf("Please input your father's height(cm):");
+    scanf("%f", &faHeight);
+    printf("Please input your mother's height(cm):");
+    scanf("%f", &moHeight);
+    printf("Do you like sports(Y/N)?");
+    scanf("%c", &sports);
+    printf("Do you have a good habit of diet(Y/N)?");
+    scanf("%c", &diet);
+
+    if (sex == 'F') {
+        result = (faHeight * 0.923 + moHeight) / 2.0;
+    }
+    else {
+        result = (faHeight + moHeight) * 0.54;
+    }
+
+    if (sports == 'Y') {
+        result *= 0.02;
+    }
+    else if (diet == 'Y') {
+        result *= 0.015;
+    }
+    printf("Your future height will be %f(cm)", result);
+
+
+    return 0;
+}
 
 
 
