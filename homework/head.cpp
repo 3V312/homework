@@ -1062,6 +1062,7 @@ int main() {
     return 0;
 }
 */
+/*
 #include<stdio.h>
 int main() {
     char sex, sports, diet;
@@ -1090,15 +1091,224 @@ int main() {
     else if (diet == 'Y') {
         result *= 0.015;
     }
-    printf("Your future height will be %f(cm)", result);
+    int result2 = 0;
+    result2 = (int)result;
+    printf("Your future height will be %d(cm)", result2);
 
 
     return 0;
 }
+*/
+/**汉诺塔问题是一个著名的问题，初始模型如图所示。其来源据说是在约19世纪末欧洲的商店中出售一种智力玩具，在一块铜板上有三根杆，最左边的杆自上而下、由小到大顺序串着64个圆盘构成的塔，游戏的目的是将最左边A杆上的圆盘，借助最右边的C杆，全部移动到中间的B杆上，条件是一次仅能移动一个盘，且不允许大盘放在小盘的上面。
 
 
 
+**输入格式要求："%d" 提示信息："Please enter the number of discs:"
+
+**输出格式要求："\tTotal:%d\n"    "%2d-(%2d):%c==>%c\n" 
+
+程序运行示例如下： 
+
+Please enter the number of discs: 
+
+Please enter the number of discs: 5 
+ 1-( 1):a==>b 
+ 2-( 2):a==>c 
+ 3-( 1):b==>c 
+ 4-( 3):a==>b 
+ 5-( 1):c==>a 
+ 6-( 2):c==>b 
+ 7-( 1):a==>b 
+ 8-( 4):a==>c 
+ 9-( 1):b==>c 
+10-( 2):b==>a 
+11-( 1):c==>a 
+12-( 3):b==>c 
+13-( 1):a==>b 
+14-( 2):a==>c 
+15-( 1):b==>c 
+16-( 5):a==>b 
+17-( 1):c==>a 
+18-( 2):c==>b 
+19-( 1):a==>b 
+20-( 3):c==>a 
+21-( 1):b==>c 
+22-( 2):b==>a 
+23-( 1):c==>a 
+24-( 4):c==>b 
+25-( 1):a==>b 
+26-( 2):a==>c 
+27-( 1):b==>c 
+28-( 3):a==>b 
+29-( 1):c==>a 
+30-( 2):c==>b 
+31-( 1):a==>b 
+    Total:31*/
+//递归我发现了移动的数字的规律。核心是把前N-1个盘子看做一个盘子。最小组合为三个。121.然后挪动第三个作为底座，再次挪动121，所以是1213121，这样一直到4，到5.最后的最佳步数是2的N次方-1，因为它是，3+1+（3）+1+（3+1+（3）），每到2的N次方-1，会完成一个小组盒子的顺序。
+//#include<stdio.h>
+//#include<stdlib.h>
+//#include<math.h>
+//
+//void honoi(int discs, char from, char to, char aux, int* count) {
+//   
+//    if (discs == 1) {
+//        printf("%2d-(%2d):%c==>%c\n", *count, 1,from,to);
+//        (*count)++;
+//        return;
+//    }
+//	honoi(discs - 1, from, aux, to, count);
+//    printf("%2d-(%2d):%c==>%c\n", *count, discs, from, to);
+//    (*count)++;
+//	honoi(discs - 1, aux, to, from, count);
+//   
+//}
+//int main() {
+//    printf("Please enter the number of discs:");
+//    int discs = 0;
+//    scanf_s("%d", &discs);
+//   
+//    int count = 1;
+//    honoi(discs, 'a', 'b', 'c', &count);
+//    printf("\tTotal:%d\n", count-1);
+//    
+//    return 0;
+//}
+//注意C89要重复初始化！
+//#include<stdio.h>
+//void judge(int n) {
+//    n = n * 10;
+//    int i = 0, j = 0, k = 0;
+//    for (i = 0; i < n / 5+1; i++) {
+//        for(j=0;j<n/2+1;j++){
+//            for(k=0;k<n+1;k++){
+//                if((i*5+j*2+k*1)==n){
+//                    printf("一角：%d，二角：%d，五角：%d\n", k, j, i);
+//                }
+//            }
+//		}
+//    }
+//}
+//int main() {
+//	printf("plese enter a number:(一元两元五元十元）");
+//    int n = 0;
+//	scanf_s("%d", &n);
+//	judge(n);
+//
+//
+//
+//    return 0;
+//}
+//
+//
+//取火柴小游戏
+/*
+#include<stdio.h>
+void init(int  current , int flag) {
+    //可以初始化来重启游戏，或者改变火柴数量，移动限制等等，但其实这里没必要
+    current = 23, flag = 0;
+    printf("这里是23根火柴游戏！！\n");
+    printf("注意：最大移动火柴数目为三根\n");
+    printf("请输入您移动的火柴数目：\n");
+}
+
+void judge(int flag) {
+    if (flag % 2 == 0) {
+        printf("恭喜您！您赢了！ \n");
+    }
+    else {
+        printf("对不起！您输了！\n");
+    }
+}
+    void computer_move(int *current, int* flag) {
+        //将剩余的火柴根数对3求余后再加1来作为计算机每次取走的火柴数。
+        //如果计算机打算移走的火柴数等于剩下的火柴数，则将计算机打算移走的火柴数减1。
+        //但是计算机不可以不取，
+        //剩下的火柴数为1时，必须取走1根火柴。
+        int computer_num = ((*current) % 3) + 1;
+        if (computer_num == (*current)) {
+            computer_num--;
+        }
+        if ((*current) == 1) {
+            computer_num = 1;
+        }
+        (*current) = (*current) - computer_num;
+        printf("计算机移动的火柴数目为：%d\n", computer_num);
+        printf("计算机移动后剩下的火柴数目为：%d\n", (*current));
+        (*flag)++;
+    }
 
 
+
+    void player_move(int *current, int *flag) {
+        int player_num = 0;
+        scanf_s(" %d", &player_num);
+        if (player_num > 3 || player_num < 1) {
+            printf("对不起！您输入了不合适的数目，请点击任意键重新输入！\n");
+			player_move(current, flag);
+        }
+        if ((*current) == 1) {
+            player_num = 1;
+        }
+        (*current) = (*current) - player_num;
+        printf("您移动的火柴数目为：%d\n", player_num);
+        printf("您移动后剩下的火柴数目为：%d\n", *current);
+        (*flag)++;
+    }
+
+
+    int main() {
+
+        
+        int  current = 23, flag = 0;
+        init(current,flag);
+        while (1) {
+            player_move(&current,&flag);
+            if (current == 0) {
+                judge(flag);
+                return 0;
+            }
+            computer_move(&current,&flag);
+            if (current == 0) {
+                judge(flag);
+                return 0;
+            }
+        }
+        return 0;
+    }*/
+#include<stdio.h>
+int Length(char p[]) {
+    int i = 0;
+    while (p[i] != '\0') {
+        i++;
+    }
+    return i;
+}
+int IsAllDigit(char p[]) {
+    if (p == NULL || *p == '\0') {
+        return 0;
+    }
+
+    for (int i = 0; p[i] != '\0'; i++) {
+        if (p[i] < '0' || p[i] > '9') {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int main() {
+    printf("Please input a string:");
+    char str[50];
+    scanf_s("%s", str, (unsigned)sizeof(str));
+    int len = Length(str);
+    printf("The string has %d characters.\n", len);
+    if (IsAllDigit(str)) {
+        printf("The string is digit string.");
+    }
+    else {
+        printf("The string is not digit string.");
+    }
+    return 0;
+}
 
 
