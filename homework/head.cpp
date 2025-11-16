@@ -1275,6 +1275,7 @@ void judge(int flag) {
         }
         return 0;
     }*/
+/*
 #include<stdio.h>
 int Length(char p[]) {
     int i = 0;
@@ -1309,6 +1310,305 @@ int main() {
         printf("The string is not digit string.");
     }
     return 0;
+}*/
+/*输入格式和提示信息：
+"\n输入学生%4d的5个成绩：\n"
+"%f"
+输出格式和提示信息：
+"\n 序号     课程1     2     3     4     5     平均分\n"
+"\n NO%2d"
+"%8.2f"
+"\n课平均"
+"%8.2f"
+"\n\n最高分%8.2f是%d号学生的第%d门课\n"
+"\n方差 %8.2f"                                 */
+/*
+#include<stdio.h>
+#include <math.h>
+
+typedef struct {
+    float score[5];
+    int  studentid;
+    float student_ave;
+}student;
+student students[2];
+
+void countave(student* stu) {
+    float sum = 0;
+    for (int i = 0; i < 5; i++) {
+        sum += stu->score[i];
+    }
+    stu->student_ave = sum / 5.0;
+
+}
+
+float calculate_variance(float ave1, float ave2) {
+    float sum = ave1 + ave2;
+    float sum_square = ave1 * ave1 + ave2 * ave2;
+
+    float variance = (sum_square / 2) - (sum / 2) * (sum / 2);
+
+    return variance;
+}
+
+int main() {
+
+    float max = 0;
+    int maxaux = 0, maxid = 0;
+    for (int i = 0; i < 2; i++) {
+        printf("\n输入学生%4d的5个成绩：\n", i);
+        students[i].studentid = i + 1;
+        for (int j = 0; j < 5; j++) {
+            scanf_s("%f", &students[i].score[j]);
+            if (max < students[i].score[j]) {
+                max = students[i].score[j];
+                maxid = i;
+                maxaux = j;
+            }
+        }
+
+        countave(&students[i]);
+    }
+    printf("\n 序号     课程1     2     3     4     5     平均分\n");
+    for (int i = 0; i < 2; i++) {
+        printf("\n NO%2d", students[i].studentid);
+        for (int j = 0; j < 5; j++) {
+            printf("%8.2f", students[i].score[j]);
+        }
+        printf("%8.2f", students[i].student_ave);
+    }
+
+    printf("\n课平均");
+    for (int i = 0; i < 5; i++) {
+        printf("%8.2f", (students[0].score[i] + students[1].score[i]) / 2.0);
+    }
+
+
+    printf("\n\n最高分%8.2f是%d号学生的第%d门课\n", max, maxid + 1, maxaux + 1);
+
+    printf("\n方差 %8.2f", calculate_variance(students[0].student_ave, students[1].student_ave));
+    return 0;
+}*/
+/*
+#include<stdio.h>
+void swap(int* p1, int* p2) {
+    int temp = *p1;
+    *p1 = *p2;
+    *p2 = temp;
+
+}
+int main() {
+    printf("please input 3 number x,y,z");
+    int arr[3];
+    for(int i = 0; i < 3; i++){
+        scanf_s("%d", &arr[i]);
+    }
+    for(int i=0;i<2;i++){
+        for(int j=0;j<2-i;j++){
+            if (j + 1 != 3&& arr[j] > arr[j + 1]) {
+                swap(&arr[j],&arr[j+1]);
+            }
+        }
+	}
+
+    printf("the sorted numbers are:%d,%d,%d\n", arr[0], arr[1],arr[2]);
+    return 0;
+}
+*/
+/*
+#include<stdio.h>
+void init(int  current)
+{
+    //可以初始化来重启游戏，或者改变火柴数量，移动限制等等，但其实这里没必要//
+    current = 21;
+    printf("Game begin:\n");
 }
 
 
+void computer_move(int* current)
+{
+    int computer_num;
+
+    // 必胜策略：让对手面对5的倍数
+    // 关键数字：1, 6, 11, 16, 21
+    if (*current == 1)
+    {
+        computer_num = 1;  // 最后一根，必输
+        return;
+    }
+    else
+    {
+        // 计算需要取多少根才能让剩余火柴数是5的倍数+1
+        int target = (*current - 1) % 5;
+        if (target == 0)
+        {
+            // 如果当前已经是必胜位置，取1根保持优势
+            computer_num = 1;
+        }
+        else
+        {
+            computer_num = target;
+        }
+
+        // 确保不会取超过剩余火柴数
+        if (computer_num > *current)
+        {
+            computer_num = (*current) - 1;
+        }
+
+    }
+
+    (*current) = (*current) - computer_num;
+    printf("Computer take %d sticks.\n", computer_num);
+    printf(" %d sticks left in the pile.\n", (*current));
+  
+}
+
+void player_move(int* current)
+{
+    int player_num = 0;
+    int max_take = (*current > 4) ? 4 : *current;
+    if ((*current) == 1) {
+		(*current) = (*current) - 1;
+        return;
+    }
+    while (1)
+    {
+        printf("How many sticks do you wish to take (1~%d)?", max_take);
+        scanf_s("%d", &player_num);
+
+        if (player_num >= 1 && player_num <= max_take)
+        {
+            break;  // 输入合法，退出循环
+        }
+        else
+        {
+            printf("How many sticks do you wish to take (1~%d)?", max_take);
+            scanf_s(" %d", &player_num);
+        }
+
+    }
+
+    (*current) = (*current) - player_num;
+    printf(" %d sticks left in the pile.\n", *current);
+    
+}
+
+int main()
+{
+    int current = 21, flag = 0;
+    init(current);
+
+    while (1)
+    {
+        player_move(&current);
+        if (current == 0)
+        {
+            printf(" You have taken the last sticks.\n");
+            printf(" ***You lose!\nGame Over.\n");
+            return 0;
+        }
+
+        computer_move(&current);
+        if (current == 0)
+        {
+            printf(" You have taken the last sticks.\n");
+            printf(" ***You lose!\nGame Over.\n");
+            return 0;
+        }
+    }
+    return 0;
+}
+*/
+#include<stdio.h>
+int judge_year(int year)
+{
+    if ((year % 4 == 0 && year % 4 != 0) || (year % 400 == 0))
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+
+}
+int sum_year(int year)
+{
+    int sum = 0;
+    for (int i = 1990; i < year; i++)
+    {
+        if (judge_year(i))
+        {
+            sum += 366;
+        }
+        else
+        {
+            sum += 365;
+        }
+    }
+
+    return sum;
+}
+int sum_month(int month, int judge)
+{
+    int sum = 0;
+    int arr0[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    int arr1[12] = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    if (judge == 1)
+    {
+        for (int i = 0; i < month + 1; i++)
+        {
+            sum += arr1[i];
+        }
+    }
+    else
+    {
+        for (int i = 0; i < month + 1; i++)
+        {
+            sum += arr0[i];
+        }
+    }
+    return sum;
+}
+int judge_monthmax(int month, int judge)
+{
+    int arr0[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    int arr1[12] = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }; //run
+    if (judge == 1)
+    {
+        return arr1[month];
+    }
+    else
+    {
+        return arr0[month];
+    }
+}
+int main()
+{
+    int year, month, day;
+
+    while (1)
+    {
+        scanf_s("%4d-%2d-%2d", &year, &month, &day);
+        if (month < 1 || month > 12 || day < 1 || day > judge_monthmax(month, judge_year(year)))
+        {
+            printf("Invalid input.");
+            return 0;
+        }
+
+        int year_data = sum_year(year);
+        int month_data = sum_month(month, judge_year(year));
+        int sum = year_data + month_data + day;
+        if ((sum % 5) >= 0 && (sum % 5) <= 3)
+        {
+            printf("He is working.");
+        }
+        else
+        {
+            printf("He is having a rest.");
+        }
+
+        return 0;
+    }
+}
