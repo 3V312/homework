@@ -1520,6 +1520,7 @@ int main()
     return 0;
 }
 */
+/*
 #include<stdio.h>
 int judge_year(int year)
 {
@@ -1611,4 +1612,129 @@ int main()
 
         return 0;
     }
+}
+*/
+//下面程序用于从键盘输入3 * 4矩阵的元素，通过调用函数FindMax，
+// 求出这3 * 4矩阵元素中的最大值及其所在行列位置，然后输出这个最大值及其所在行列位置。
+// （找出其中的4处错误，并改正之）
+/*
+#include <stdio.h>
+int FindMax(int x[3][4], int* pRow, int* pCol);
+int main()
+{
+    int a[3][4], max, i, j, row, col;
+
+    for (i = 0; i < 3; i++)
+    {
+        for (j = 0; j < 4; j++)
+        {
+            scanf_s("%d", &a[i][j]);
+        }
+    }
+    max = FindMax(a, &row, &col);
+    printf("max=%d,row=%d,col=%d\n", max, row, col);
+}
+int FindMax(int x[3][4], int* pRow, int* pCol)
+{
+    int max, i, j;
+    max = x[0][0];
+    for (i = 0; i < 3; i++)
+    {
+        for (j = 0; j < 4; j++)
+        {
+            if (x[i][j] > max)
+            {
+                max = x[i][j];
+                *pRow = i+1;
+                *pCol = j+1;
+            }
+        }
+    }
+    return max;
+}
+*/
+/*
+#include <stdio.h>
+unsigned long Factorial(unsigned int n)
+{
+    if (n < 0)
+    {
+        printf("data error!");
+        return 0;
+    }
+    else if (n == 0 || n == 1)
+    {
+        return 1;
+    }
+    else
+    {
+        return n * Factorial(n - 1);
+    }
+}
+int main()
+{
+    int n;
+    unsigned long x;
+    printf("Input n:\n");
+    scanf_s("%d", &n);
+    x = Factorial(n);
+    printf("%d!=%ld\n", n, x);
+}
+*/
+/*
+#include<stdio.h>
+#include<string.h>
+
+int main() {
+    char temp[20];
+    char arr[5][20];
+    printf("Input five countries' names:\n");
+    for (int i = 0; i < 5; i++) {
+        fgets(arr[i],20,stdin);
+    }
+   
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j<4-i; j++) {
+            if (strcmp(arr[i], arr[j]) >0) {
+                strcpy(temp, arr[j]);
+                strcpy(arr[j], arr[i]);
+                strcpy(arr[i], temp);
+            }
+        }
+    }
+
+    printf("The minimum is:%s\n", arr[0]);
+    return 0;
+}
+*/
+
+
+#include <stdio.h>
+#define n=10
+int FindMax(int num[], int n, int* pMaxPos);
+int main()
+{
+    int num[n] = { 0 };
+    int maxValue, maxPos, minValue, minPos, i;
+    printf("Input %d numbers:\n", n);
+    for (i = 0; i < n; i++)
+    {
+        scanf("%d", &num[i]);
+    }
+    maxValue = FindMax(num, n, &maxPos);
+    printf("Max=%d, Position=%d\n", maxValue, maxPos);
+    return 0;
+}
+int FindMax(int num[], int n, int* pMaxPos)
+{
+    int i, max = num[0];
+    for (i = 1; i < n; i++)
+    {
+        if (num[i] > max)
+        {
+            max = num[i];
+            *pMaxPos = i;
+        }
+    }
+    return max;
 }
