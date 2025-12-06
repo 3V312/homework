@@ -1708,23 +1708,9 @@ int main() {
 }
 */
 
-
+/*
 #include <stdio.h>
-#define n=10
-int FindMax(int num[], int n, int* pMaxPos);
-int main()
-{
-    int num[n] = { 0 };
-    int maxValue, maxPos, minValue, minPos, i;
-    printf("Input %d numbers:\n", n);
-    for (i = 0; i < n; i++)
-    {
-        scanf("%d", &num[i]);
-    }
-    maxValue = FindMax(num, n, &maxPos);
-    printf("Max=%d, Position=%d\n", maxValue, maxPos);
-    return 0;
-}
+#define N 10
 int FindMax(int num[], int n, int* pMaxPos)
 {
     int i, max = num[0];
@@ -1737,4 +1723,745 @@ int FindMax(int num[], int n, int* pMaxPos)
         }
     }
     return max;
+}
+int main()
+{
+    int num[N] = { 0 };
+    int maxValue, minValue, minPos, i;
+    int maxPos = 0;
+    printf("Input %d numbers:\n", N);
+    for (i = 0; i < N; i++)
+    {
+        scanf("%d", &num[i]);
+    }
+    maxValue = FindMax(num,N, &maxPos);
+    printf("Max=%d, Position=%d\n", maxValue, maxPos);
+    return 0;
+}
+*/
+/*
+#include <string.h>
+#include <stdio.h>
+int main()
+{
+    int i=0, findFlag=0;
+    char x[15] ;
+    char str[][15] = { "Pascal","Basic","Fortran", "Java", "Visual C", "Visual Basic" };
+
+    printf("请输入一个字符串:");
+    fgets(x,15,stdin);
+    for (int i = 0; *(x + i) != '\0'; i++) {
+        if (*(x + i) == '\n') {
+            *(x + i) = '\0';
+        }
+    }
+    while (i < 6 && !findFlag)
+    {
+        if (strcmp(x, str[i]) == 0)
+        {
+            findFlag = 1;
+        }
+        i++;
+    }
+
+    if (findFlag)
+    {
+        printf("%s\n", x);
+    }
+    else
+    {
+        printf("没找到!\n");
+    }
+    return 0;
+}
+*/
+/*
+#include<stdio.h>
+#include<math.h>
+int main() {
+    int year = 0;
+    int rate = 0;
+    printf("Enter interest rate:");
+    scanf_s("%d", &rate);
+    printf("Enter number of year:");
+    scanf_s("%d", &year);
+    printf("years");
+    for (int i = 6; i < 11; i++) {
+       
+            printf("%6d%%", i);
+       
+    }
+    printf("\n");
+    for (int i = 0; i < year; i++) {
+        for (int j = 0; j < 6; j++) {
+            if (j == 0) {
+                printf("%3d   ", i + 1);
+            }
+            else {
+                double amount = 100.0 * pow(1.0 + ((j + rate) / 100.0), (i + 1));
+                printf("%7.2f", amount);
+            }
+        }
+        printf("\n");
+    }
+
+
+}
+*/
+/*
+#include<stdio.h>
+
+int main() {
+    printf("Input a 5*5 matrix\n");
+    int sum = 0;
+    int arr[5][5] = { 0 };
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; ) {
+            if (scanf_s("%d", &arr[i][j]) == 1) {
+
+                if (i == j || j + i == 4) {
+					sum += arr[i][j];
+                }
+                j++;
+            }
+        }
+    }
+    printf("sum=%5d\n", sum);
+    return 0;
+}*/
+
+/*
+#include<stdio.h>
+
+int main() {
+    printf("Input a 5*5 matrix\n");
+    int sum = 0;
+    int arr[5][5] = { 0 };
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+           
+                if (i == j || j + i == 4) {
+                    int temp = 0;
+                    scanf_s("%d", &temp);
+                    sum += temp;
+                }
+           
+        }
+    }
+    printf("sum=%5d\n", sum);
+    return 0;
+}
+*/
+/*
+#include<stdio.h>
+
+int is_prime(int n) {
+    if (n == 0) {
+        return 0;
+    }
+    if (n == 1) {
+        return 0;
+    }
+    if (n == 2) { return 1; }
+    if (n % 2 == 0) {
+        return 0;
+    }
+    for (int i = 3; i * i < n; i += 2) {
+        if (n % i == 0) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+long find_prime(int n) {
+
+    for (int i = n + 1; 1; i++) {
+        if (is_prime(i) == 1) {
+            return (long)i;
+        }
+    }
+
+
+}
+
+
+
+
+
+int main() {
+    printf("Please input n:");
+    int n = 0;
+    scanf_s("%d", &n);
+    long k = 0;
+    k = find_prime(n);
+    printf("%ld", k);
+
+    return 0;
+}*/
+/*
+#include<stdio.h>
+
+
+int main()
+{
+    int x, y, z;
+    printf("Man \t Women \t Childern\n");
+    for (x = 1; x < 16; x++)
+        for (y = 1; y < 25; y++)
+        {
+            z = 30- x - y;
+            if (3 * x + 2 * y + z == 50) {
+                printf("%3d\t %5d\t %8d\n", x, y, z);
+            }
+        }
+}
+*/
+
+/*
+#include<stdio.h>
+#include<string.h>
+void insert(char* str_main, char* str_sub, int n) {
+    char temp[50] = { 0 };
+    int j = 0;
+    for (int i = n; *(str_main + i) != 0 && j<50; i++) {
+        
+        *(temp +j) = *(str_main + i);
+        
+        j++;
+    }
+    j = 0;
+    int k = n;
+    for (k; *(str_sub + j) != 0; k++) {
+        *(str_main + k) = *(str_sub + j);
+        j++;
+    }
+    j = 0;
+    for ( j; *(temp + j) != 0; j++) {
+        *(str_main + k) = *(temp + j);
+        k++;
+    }
+    *(str_main + k) = '\0';
+
+}
+
+int main() {
+    char str_main[50] = { 0 };
+    char str_sub[50] = { 0 };
+    printf("main string:");
+    gets(str_main,50,stdin);
+    printf("sub string:");
+    gets(str_sub,50,stdin);
+    int len_main = strlen(str_main);
+    int len_sub = strlen(str_sub);
+    int n = 0;
+        printf("site of beginning:(<=%d)", len_main);
+        scanf_s("%d", &n);
+            insert(str_main, str_sub, n);
+
+        printf("After instert:%s\n", str_main);
+
+    return 0;
+}
+*/
+
+//下面程序的Squeeze函数的功能是删除字符串s中所出现的与变量c相同的字符
+/*
+#include <stdio.h>
+
+
+void Squeeze(char s[], char c)
+{
+    int i=0, j=0;
+
+    for (i = 0; s[i] != '\0'; i++)
+    {
+        if (s[i] != c)
+        {
+            s[j] = s[i];
+            j++;
+        }
+    }
+    s[j] = '\0';
+}
+int main()
+{
+    char a[80], c;
+
+    scanf_s("%s", a,sizeof(a));
+    scanf_s(" %c", &c,sizeof(c));
+    Squeeze(a, c);
+    printf("%s\n", a);
+}
+*/
+/*
+#include<stdio.h>
+#include<string.h>
+void Chline(char ch, int column, int row) {
+    for (int i = 0; i < column; i++) {
+        for (int j = 0; j < row; j++) {
+            printf("%c", ch);
+        }
+        printf("\n");
+    }
+
+
+
+}
+
+int main() {
+    printf("input a char:\n");
+    char ch;
+    scanf("%c", &ch);
+    printf("input column and row:\n");
+    int column, row;
+    scanf("%d%d", &column, &row);
+    Chline(ch, column, row);
+
+
+    return 0;
+}*/
+
+/*
+#include<stdio.h>
+int GetAboveAver(int score[], int n) {
+    int ave = 0;
+    int above = 0;
+    for (int i = 0; score[i] >= 0; i++) {
+        ave += score[i];
+    }
+    ave = ave / (n-1);
+    for (int j = 0; score[j] >= 0; j++) {
+        if (score[j] >= ave) {
+            above++;
+        }
+    }
+    return above;
+
+
+}
+
+int main() {
+    int score[40] = { 0 };
+    int len = 0;
+    for (int i = 0; i < 40; i++) {
+        scanf_s("%d", &score[i]);
+        len++;
+        if (score[i] < 0) {
+            break;
+        }
+    }
+    int above = 0;
+    above = GetAboveAver(score, len);
+    printf("Students of above average is %d\n", above);
+
+    return 0;
+}
+
+*/
+/*
+#include<string.h>
+#include<stdio.h>
+#define len 77
+void myfloor(int* arr, int r, int current_idx, int* sum) {
+    if (*(arr + current_idx) == -2) {
+        //说明到末尾，实际上根据模运算的性质，可以分步取模
+        if (r% 13 == 5) {
+            *sum = (*sum + 1) % (1000000007);
+            return;
+        }
+        else {
+           return;
+        }
+
+    }
+    int rr = 0;
+    if (*(arr + current_idx) == -1) {
+        for (int t = 0; t < 10; t++) {
+            rr = ((r * 10) + t) % 13;
+            myfloor(arr, rr, current_idx + 1, sum);
+        }
+    }
+    else {
+        rr = ((r * 10) + *(arr + current_idx)) % 13;
+        myfloor(arr, rr, current_idx + 1, sum);
+    }
+}
+
+int main() {
+    char str[len];
+    int arr[len+1] = {0};
+    
+    fgets(str, len, stdin);
+    for (int i = 0; *(str + i) != '\0'; i++) {
+        if (*(str + i) == '\n') {
+            *(str + i) = '\0';
+            break;
+        }
+    }
+    int j = 0;
+    for (j; *(str + j) != '\0'; j++) {
+        if (*(str +  j) == '?') {
+            *(arr + j) = -1;
+        }
+        else {
+            *(arr + j) = (int)*(str + j)-'0';
+        }
+    }
+    *(arr + j) = -2;
+    int sum = 0;
+    int r = 0;
+
+    myfloor(arr, r, 0, &sum);
+    printf("%d", sum);//这个字体%好像中国结啊
+    return 0;
+}
+
+*/
+/*
+#include<stdio.h>
+#include<stdlib.h>
+//数列多大啊
+int main() {
+    int n = 0;
+    scanf_s("%d", &n);
+    int* arr = (int*)malloc(n * sizeof(int));
+    int temp[2] = { 0 };
+    for (int i = 0; i < n; i++) {
+        scanf_s(" %d", &(*(arr + i)));
+    }
+
+    int flag = 0;
+    
+
+
+    for (int j = 0; j < n; j++) {
+        if (j == n - 1 && (*(arr + j)) - (*(arr )) < 0) {
+            *(temp + flag) = j;
+            flag++;
+        }
+
+        else if (j < n - 2 && (*(arr + j) - (*(arr + j + 1))) >0) {
+            if (flag < 2) {
+                *(temp + flag) = j;
+                flag++;
+            }
+        
+        else {
+                printf("NO");
+                free(arr);
+                return 0;
+            }
+
+        }
+    }
+    
+        int x = *(arr + temp[0]);
+        *(arr + temp[0]) = *(arr + temp[1]);
+        *(arr + temp[1]) = x;
+    
+    for (int k = 0; k < n; k++) {
+        if (k == n - 1 && *(arr + k) - *(arr + k - 1) < 0) {
+            printf("NO");
+            free(arr);
+            return 0;
+        }
+        if (k!=n-1&&(*(arr + k+1) - (*(arr + k ))) < 0) {
+
+            printf("NO");
+            free(arr);
+            return 0;
+        }
+    }
+    printf("YES");
+    free(arr);
+    return 0;
+
+
+
+}
+*/
+/*
+#include<stdio.h>
+struct date_rec
+{
+    int day;
+    int month;
+    int year;
+};
+
+
+void input_date(struct date_rec* current_date) {
+
+    scanf("%d%d%d", &(current_date->year), &(current_date->month), &(current_date->day));
+
+}
+void increment_date(struct date_rec* current_date) {
+    int flag = 0;
+    if (((current_date->year) % 4 == 0 && (current_date->year) % 100 != 0) || (current_date->year) % 400 == 0) {
+        flag = 1;
+    }
+    int month_0[13] = { 0,31,28,31,30,31,30,31,31,30,31,30,31 };
+    int month_1[13] = { 0,31,29,31,30,31,30,31,31,30,31,30,31 };
+    if (flag == 0) {
+        if (current_date->day == month_0[current_date->month]) {
+            if (current_date->month == 12) {
+                current_date->year++;
+                current_date->month = 1;
+                current_date->day = 1;
+            }
+            else {
+                current_date->month++;
+                current_date->day = 1;
+            }
+        }
+        else {
+            current_date->day++;
+        }
+    }
+    else {
+
+        if (current_date->day == month_1[current_date->month]) {
+            if (current_date->month == 12) {
+                current_date->year++;
+                current_date->month = 1;
+                current_date->day = 1;
+            }
+            else {
+                current_date->month++;
+                current_date->day = 1;
+            }
+        }
+        else {
+            current_date->day++;
+        }
+    }
+}
+    
+    void output_date(struct date_rec* current_date){
+        printf("当前日期：%d年%d月%d日！", current_date->year, current_date->month, current_date->day);
+    }
+
+    int main() {
+        printf("请输入当前日期（年 月 日）：");
+
+        struct date_rec current_date;
+        input_date( &current_date);
+        increment_date(&current_date);
+        output_date(&current_date);
+        return 0;
+    }
+    */
+/*
+#include<stdio.h>
+#include<string.h>
+void f(char* a[8]) {
+   
+    for (int i = 0; i < 7; i++) {
+        int flag = 0;
+        for (int j = 0; j < 7; j++) {
+            if (strcmp(a[j], a[j + 1]) > 0) {
+                char* temp = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = temp;
+                flag = 1;
+            }
+        }
+        if (!flag) { break; }
+    }
+}
+
+int main() {
+    char str[8][20];
+    for (int i = 0; i < 8; i++) {
+        scanf_s("%s", str[i], (unsigned)sizeof(str[i]));
+    }
+    char* a[8];
+    for (int i = 0; i < 8; i++) {
+        a[i] = str[i];
+    }
+    f(a);
+    for (int i = 0; i < 8; i++) {
+        printf("%s\n", a[i]);
+    }
+
+    return 0;
+}
+*/
+/*
+#include<stdio.h>
+#include<math.h>
+float f(float n1, float a, float b, float c, float d) {
+    return a * n1 * n1 * n1 + b * n1 * n1 + c * n1 + d;
+}
+float f_1(float n2, float a, float b, float c, float d) {
+    return 3.0 * a * n2 * n2 + 2.0 * b * n2 + c;
+}
+void getanswer( float a, float b, float c, float d,float* result) {
+    if (fabs(f(*result, a, b, c, d)) < 1e-6 ) {
+        return;
+    }
+    else {
+        float n1 = 0.0;
+        float n2 = 0.0; 
+        float n=0.0;
+        n1 = f(*result, a, b, c, d);
+        n2 = f_1(*result, a, b, c, d);
+        n = n1 / n2;
+        *result = *result - n;
+        getanswer(a, b, c, d, result);
+    }
+}
+
+int main() {
+    printf("\n输入方程的系数a、b、c、d：\n");
+    float a, b, c, d;
+    scanf_s("%f%f%f%f", &a, &b, &c, &d);
+    float result = 1;
+    getanswer(a, b, c, d, &result);
+    printf("\n方程是：%5.2fx^3+%5.2fx^2+%5.2fx+%5.2f=0", a, b, c, d);
+    printf("\nX=%10.7f\n", result);
+    return 0;
+}
+*/
+///*
+//#include<stdio.h>
+//#include<stdlib.h>
+//typedef struct stack
+//{
+//    int data;
+//    struct stack* next;
+//} STACK;
+//STACK* head=NULL;
+//int nodeNum = 0;                            /* 堆栈节点数寄存器 */
+//STACK* CreateNode(int num);
+//STACK* PushStack(int num);
+//int PopStack(void);
+//int main()
+//{
+//    int pushNum[5] = { 111, 222, 333, 444, 555 }, popNum[5], i;
+//    for (i = 0; i < 5; i++)
+//    {
+//        PushStack(pushNum[i]);
+//        printf("Push %dth Data:%d\n", i + 1, pushNum[i]);
+//    }
+//    for (i = 0; i < 5; i++)
+//    {
+//        popNum[i] = PopStack();
+//        printf("Pop %dth Data:%d\n", 5 - i, popNum[i]);
+//    }
+//    return 0;
+//}
+///* 函数功能：生成一个新的节点，并为该节点赋初值，返回指向新的节点的指针 */
+//STACK* CreateNode(int num)
+//{
+//    STACK* p=(STACK*)malloc(sizeof(STACK));
+//    p->data = num;
+//    p->next = NULL;
+//        return p;
+//}
+///*  函数功能：将整型变量num的值压入堆栈，返回指向链表新节点的指针 */
+//STACK* PushStack(int num)
+//{
+//    STACK* pr = head;
+//    STACK* newnode = CreateNode(num);
+//    if (head == NULL) {
+//        head = newnode;
+//        return head;
+//    }
+//    else {
+//        while ((pr->next) != NULL) {
+//            pr = pr->next;
+//        }
+//        pr->next = newnode;
+//        pr = pr->next;
+//        return pr;
+//    }
+//}
+///*  函数功能：将当前栈顶的数据弹出堆栈，返回从堆栈中弹出的数据 */
+//int PopStack(void)
+//{
+//    if (head== NULL) {
+//        return 0;
+//    }
+//    else if (head->next == NULL) {
+//        int result = head->data;
+//        free(head);
+//        head = NULL;
+//        return result;
+//    }
+//    else {
+//        STACK* pr = head;
+//        int result=0;
+//        while (pr->next->next != NULL) {
+//            pr = pr->next;
+//        }
+//        result = pr->next->data;
+//        pr->next = NULL;
+//        free(pr->next);
+//        return result;
+//    }
+//}
+//*/
+
+//? 0-9,模13余5
+#include<stdio.h>
+#define len 77
+#define MOD 100007
+#include<string.h>
+#include<stdlib.h>
+
+int mydp(char* str,int n) {
+    int (*dp)[13] = (int(*)[13])malloc((n + 1) * sizeof(*dp));
+    for (int i = 0; i <= n; i++) {
+        for (int j = 0; j < 13; j++) {
+            dp[i][j] = 0;
+        }
+    }
+
+    dp[0][0] = 1;
+    int r = 0;
+   
+        for (int i = 1; i < n+1; i++) {
+            if (str[i-1] == '?') {
+                for (int r = 0; r < 13; r++) {
+                    if (dp[i - 1][r] > 0) {
+
+                        for (int j = 0; j < 10; j++) {
+
+                            int rr = (r * 10 + j) % 13;
+                            dp[i][rr] = (dp[i][rr] + dp[i - 1][r]) % MOD;
+                        }
+                    }
+                }
+            }
+            else {
+                for (int r = 0; r < 13; r++) {
+                    if (dp[i - 1][r] > 0) {
+
+                     int rr = (r * 10 + (str[i-1]-'0')) % 13;
+                     dp[i][rr] = (dp[i][rr] + dp[i - 1][r]) % MOD;
+                        
+                    }
+                }
+            }
+        }
+
+        int result = dp[n][5];
+        free(dp);
+        return result;
+    }
+
+
+int main() {
+    char str[len];
+    fgets(str, len, stdin);
+    for (int i = 0; *(str + i) != '\0'; i++) {
+        if (*(str + i) == '\n') {
+            *(str + i) = '\0';
+            break;
+        }
+    }
+    printf("%d", mydp(str, strlen(str)));
+    return 0;
 }
